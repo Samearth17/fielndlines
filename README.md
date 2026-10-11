@@ -32,18 +32,6 @@ Most outdoor and nature apps paradoxically keep you glued to your phone screen�
 
 ---
 
-## 📸 Screenshots
-
-| Mission Planner | Generated Mission |
-| :---: | :---: |
-| ![Mission Planner](docs/assets/02-mission-planner.png) | ![Generated Mission](docs/assets/03-generated-mission.png) |
-
-| Screen-Free Mode | Field Journal |
-| :---: | :---: |
-| ![Screen-Free Mode](docs/assets/05-screen-free-mode.png) | ![Field Journal](docs/assets/04-field-journal.png) |
-
----
-
 ## 🚀 Quick Start
 
 ### 1. Clone & Set Up Environment
