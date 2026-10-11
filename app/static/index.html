@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="FieldLens AI creates private, local nature missions that help you step outside and notice more.">
+  <meta name="theme-color" content="#173c2a">
+  <title>FieldLens AI — Look closer. Wander lightly.</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="FieldLens AI home"><span class="brand-mark" aria-hidden="true">F</span><span>FieldLens <em>AI</em></span></a>
+    <nav aria-label="Primary navigation"><a href="#mission-builder">Explore</a><a href="#journal">Journal</a><a href="#principles">Field notes</a></nav>
+    <div class="model-state" id="model-state" title="Local model status"><span aria-hidden="true"></span><strong>Checking local AI</strong></div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">A field guide that gives the screen back</p>
+        <h1>Look closer.<br><span>Wander lightly.</span></h1>
+        <p class="lede">Choose a place and a curiosity. FieldLens creates a short, safe nature mission—then asks you to put the phone away.</p>
+        <a class="primary-link" href="#mission-builder">Plan an outdoor mission <span aria-hidden="true">↘</span></a>
+        <div class="privacy-line"><span aria-hidden="true">◉</span> No account · No GPS · Journal stays in this browser</div>
+      </div>
+      <div class="hero-art" aria-label="Abstract illustration of leaves, sun, and a winding trail">
+        <div class="sun"></div><div class="hill hill-one"></div><div class="hill hill-two"></div><div class="trail"></div>
+        <div class="leaf leaf-a">⌁</div><div class="leaf leaf-b">⌁</div>
+        <p><span>01</span> Choose<br><span>02</span> Wander<br><span>03</span> Remember</p>
+      </div>
+    </section>
+
+    <section class="builder-section" id="mission-builder" aria-labelledby="builder-title">
+      <div class="section-intro"><p class="eyebrow">Your next small adventure</p><h2 id="builder-title">Build a mission</h2><p>About thirty seconds of setup. The rest belongs to the outdoors.</p></div>
+      <form id="mission-form" class="mission-form">
+        <fieldset>
+          <legend><span>01</span> How much time?</legend>
+          <div class="choice-row duration-options">
+            <label><input type="radio" name="duration" value="15"><span><strong>15</strong> min<br><small>Quick reset</small></span></label>
+            <label><input type="radio" name="duration" value="30" checked><span><strong>30</strong> min<br><small>Curious walk</small></span></label>
+            <label><input type="radio" name="duration" value="60"><span><strong>60</strong> min<br><small>Deep wander</small></span></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend><span>02</span> Where are you going?</legend>
+          <div class="choice-row environment-options">
+            <label><input type="radio" name="environment" value="park" checked><span>Park</span></label>
+            <label><input type="radio" name="environment" value="neighborhood"><span>Neighborhood</span></label>
+            <label><input type="radio" name="environment" value="garden"><span>Garden</span></label>
+            <label><input type="radio" name="environment" value="woodland"><span>Woodland</span></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend><span>03</span> What catches your eye? <small>Choose one or more</small></legend>
+          <div class="choice-row interest-options">
+            <label><input type="checkbox" name="interests" value="plants" checked><span>Plants</span></label>
+            <label><input type="checkbox" name="interests" value="birds"><span>Birds</span></label>
+            <label><input type="checkbox" name="interests" value="insects"><span>Insects</span></label>
+            <label><input type="checkbox" name="interests" value="trees"><span>Trees</span></label>
+            <label><input type="checkbox" name="interests" value="general biodiversity"><span>All life</span></label>
+          </div>
+        </fieldset>
+        <p class="form-error" id="form-error" role="alert" hidden></p>
+        <button class="generate-button" type="submit" id="generate-button"><span class="button-text">Create my field mission</span><span class="spinner" aria-hidden="true"></span><span aria-hidden="true">→</span></button>
+        <p class="model-note">The first local-AI mission may take longer while model files download. Safe fallback missions are always available.</p>
+      </form>
+    </section>
+
+    <section id="mission-output" class="mission-output" aria-live="polite" hidden>
+      <div class="section-intro light"><p class="eyebrow">Mission ready</p><h2>Take this outside</h2></div>
+      <article class="mission-card">
+        <div class="mission-top"><div><span class="source-badge" id="mission-source"></span><h3 id="mission-title"></h3></div><div class="duration-stamp"><strong id="mission-duration"></strong><small>minutes</small></div></div>
+        <div class="mission-meta"><span id="mission-environment"></span><span id="mission-difficulty"></span><span id="mission-interests"></span></div>
+        <ol id="mission-steps"></ol>
+        <details class="safety-panel"><summary>Before you head out — safety & care</summary><ul id="mission-safety"></ul></details>
+        <div class="mission-actions"><button type="button" class="start-button" id="start-mission">Start screen-free mode</button><button type="button" class="text-button" id="new-mission">Make another</button></div>
+      </article>
+    </section>
+
+    <section class="journal-section" id="journal" aria-labelledby="journal-title">
+      <div class="section-intro"><p class="eyebrow">Private field journal</p><h2 id="journal-title">What did you notice?</h2><p>Saved only in this browser. No observation is sent to the server.</p></div>
+      <div class="journal-grid">
+        <form id="journal-form" class="journal-form">
+          <input type="hidden" id="entry-id">
+          <label for="entry-title">Observation title</label><input id="entry-title" maxlength="80" placeholder="e.g. Three kinds of bird song" required>
+          <label for="entry-notes">Field notes</label><textarea id="entry-notes" maxlength="2000" rows="6" placeholder="Colors, movement, sounds, questions…" required></textarea>
+          <label for="entry-mission">Related mission <small>(optional)</small></label><input id="entry-mission" maxlength="80" placeholder="Use current mission">
+          <p class="form-error" id="journal-error" role="alert" hidden></p>
+          <div class="journal-actions"><button class="save-button" type="submit"><span id="save-label">Save observation</span></button><button class="text-button" type="button" id="cancel-edit" hidden>Cancel edit</button></div>
+          <p class="storage-note">Browser localStorage is convenient, but it is not encrypted. Avoid sensitive personal information.</p>
+        </form>
+        <div class="entries-panel">
+          <div class="entries-heading"><h3>Saved observations</h3><span id="entry-count">0 entries</span></div>
+          <div id="entries-list"></div>
+          <div class="empty-state" id="journal-empty"><span aria-hidden="true">✦</span><h4>Your first note starts outside</h4><p>Complete a mission, then return with one thing that surprised you.</p></div>
+        </div>
+      </div>
+    </section>
+    <section id="principles" class="principles">
+      <article><span>01</span><h3>Leave it living</h3><p>Watch quietly. Never touch, feed, collect, chase, or disturb wildlife.</p></article>
+      <article><span>02</span><h3>Stay welcome</h3><p>Use permitted public spaces and marked paths. Never trespass.</p></article>
+      <article><span>03</span><h3>Stay curious</h3><p>Record what you see without treating an unverified species guess as fact.</p></article>
+    </section>
+  </main>
+
+  <div class="screen-free" id="screen-free" role="dialog" aria-modal="true" aria-labelledby="screen-free-title" hidden>
+    <div class="screen-free-inner"><span class="pulse-orb" aria-hidden="true"></span><p class="eyebrow">Mission in progress</p><h2 id="screen-free-title">The screen can wait.</h2><p id="screen-free-copy">Pocket your phone. Look up. Listen for what the map cannot show you.</p><div class="timer" id="timer" aria-live="polite">30:00</div><div class="screen-actions"><button type="button" id="complete-mission">I’m back — complete mission</button><button type="button" class="quiet-button" id="exit-screen-free">Exit for now</button></div></div>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <footer><a class="brand" href="/"><span class="brand-mark">F</span><span>FieldLens AI</span></a><p>Made to shorten screen time, not fill it.</p><p>Local AI · Local journal · No tracking</p></footer>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>
